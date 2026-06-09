@@ -60,7 +60,7 @@ export default async function Home() {
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <a
-                href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '521234567890'}?text=Hola%20JC23%20ARMY,%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20sobre%20sus%20productos.`}
+                href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '523310644238'}?text=Hola%20JC23%20ARMY,%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20sobre%20sus%20productos.`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900/40 hover:bg-zinc-900 px-6 py-3 text-sm font-bold text-zinc-200 hover:text-white transition-colors"
