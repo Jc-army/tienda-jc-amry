@@ -31,7 +31,7 @@ export default function ProductDetailsClient({ product }) {
   };
 
   const handleDirectQuote = () => {
-    const sellerNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '521234567890';
+    const sellerNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '523310644238';
     const message = `*JC23 ARMY - Consulta de Producto*\n\nHola, me interesa cotizar este producto de inmediato:\n\n• *${quantity}x* ${product.name}\n  _Cal: ${product.category}_\n  _Precio Unitario: ${formatPrice(product.price)}_\n\n¿Tienen disponibilidad y cuánto sería del envío?\n\n_Enlace del producto: ${typeof window !== 'undefined' ? window.location.href : ''}_`;
     
     const encodedMessage = encodeURIComponent(message);
