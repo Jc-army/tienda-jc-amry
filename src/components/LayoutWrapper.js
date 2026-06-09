@@ -113,8 +113,8 @@ export default function LayoutWrapper({ children }) {
               <ul className="space-y-2 text-xs text-zinc-500">
                 <li>Asesoría de Compra / WhatsApp</li>
                 <li className="text-white font-bold hover:text-amber-500 transition-colors">
-                  <a href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '521234567890'}`} target="_blank" rel="noopener noreferrer">
-                    {process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+52 123 456 7890'}
+                  <a href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '523310644238'}`} target="_blank" rel="noopener noreferrer">
+                    {process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+52 331 064 4238'}
                   </a>
                 </li>
                 <li>Lunes a Sábado: 9:00 AM - 7:00 PM</li>
