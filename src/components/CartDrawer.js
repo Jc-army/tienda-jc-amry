@@ -202,7 +202,7 @@ export default function CartDrawer({ isOpen, onClose }) {
                     <input
                       type="tel"
                       id="client-phone"
-                      placeholder="Ej. +52 123 456 7890"
+                      placeholder="Ej. +52 333 072 8515"
                       value={clientPhone}
                       onChange={(e) => setClientPhone(e.target.value)}
                       className="w-full rounded-lg border border-zinc-800 bg-zinc-900/60 px-3 py-2 text-sm text-white placeholder-zinc-600 focus:border-amber-500 focus:outline-none"
