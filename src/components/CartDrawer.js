@@ -41,7 +41,7 @@ export default function CartDrawer({ isOpen, onClose }) {
       return;
     }
 
-    const sellerNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '521234567890'; // Default placeholder format (Mexico code + number)
+    const sellerNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '523310644238'; // Default placeholder format (Mexico code + number)
     
     // Construct message
     let message = `*JC23 ARMY - Nueva Solicitud de Cotización*\n\n`;
