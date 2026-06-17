@@ -213,5 +213,53 @@ export const MOCK_PRODUCTS = [
       "Contenido": "Varillas, escobillas, adaptadores, parches",
       "Estuche": "Plástico rígido termoformado"
     }
+  },
+  {
+    id: "801",
+    name: "Freidora de Aire Premium XL 5.5L Digital",
+    category: "Electrodomésticos",
+    description: "Freidora de aire digital con capacidad de 5.5 litros y tecnología de circulación rápida de aire a 360 grados. Incluye 8 programas de cocción inteligentes y panel táctil de control de temperatura.",
+    price: 2499,
+    image_url: "https://images.unsplash.com/photo-1621972750749-0fbb1abb7736?q=80&w=600&auto=format&fit=crop",
+    featured: false,
+    specs: {
+      "Capacidad": "5.5 Litros",
+      "Potencia": "1700W",
+      "Panel": "Táctil digital LED",
+      "Programas": "8 modos preestablecidos",
+      "Voltaje": "110V"
+    }
+  },
+  {
+    id: "901",
+    name: "Katana de Colección Acero T10 Templado al Barro",
+    category: "Katanas",
+    description: "Espada samurái tradicional de exhibición y práctica de corte (Tameshigiri). Forjada a mano en acero T10 con Hamon auténtico templado en barro, Tsuka envuelta en piel de raya genuina y Saya lacada en negro brillante.",
+    price: 3850,
+    image_url: "https://images.unsplash.com/photo-1594136976694-df0a28f8df4f?q=80&w=600&auto=format&fit=crop",
+    featured: true,
+    specs: {
+      "Material Cañón": "Acero T10 forjado a mano",
+      "Dureza (HRC)": "60 (Borde) / 40 (Lomo)",
+      "Largo Hoja": "71 cm",
+      "Largo Mango": "26 cm",
+      "Material Tsuka": "Piel de raya con envoltura de seda"
+    }
+  },
+  {
+    id: "1001",
+    name: "Carro a Escala Shelby Mustang GT500 1967 Escala 1:18",
+    category: "Carros a escala",
+    description: "Réplica oficial a escala 1:18 del legendario Shelby Mustang GT500 de 1967. Fabricado en metal fundido a presión (Die-Cast) con apertura de puertas, capó y maletero. Dirección funcional y detallado de motor ultra fiel.",
+    price: 1200,
+    image_url: "https://images.unsplash.com/photo-1581235720704-06d3acfcb36f?q=80&w=600&auto=format&fit=crop",
+    featured: false,
+    specs: {
+      "Escala": "1:18",
+      "Material": "Metal Die-cast y partes plásticas",
+      "Marca": "Maisto / Shelby licensed",
+      "Aperturas": "Puertas, capó y cajuela",
+      "Edad Recomendada": "14+ años"
+    }
   }
 ];

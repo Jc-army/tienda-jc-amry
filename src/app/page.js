@@ -13,7 +13,10 @@ import {
   ArrowRight,
   Shield, 
   Truck, 
-  MessageSquare 
+  MessageSquare,
+  Tv,
+  Sword,
+  Car
 } from 'lucide-react';
 
 export const revalidate = 300; // Revalidate cache every 5 minutes
@@ -29,7 +32,10 @@ export default async function Home() {
     { name: "Copitas", icon: Disc, desc: "Mendoza, Deportivas y plomo", color: "from-red-500/20 to-pink-500/5" },
     { name: "Miras", icon: Eye, desc: "Telescópicas y Punto Rojo", color: "from-purple-500/20 to-fuchsia-500/5" },
     { name: "Accesorios", icon: Settings, desc: "Tanques PCP, fundas e infladores", color: "from-cyan-500/20 to-sky-500/5" },
-    { name: "Ferretería", icon: Wrench, desc: "Aceites, refacciones y limpieza", color: "from-zinc-500/20 to-slate-500/5" }
+    { name: "Ferretería", icon: Wrench, desc: "Aceites, refacciones y limpieza", color: "from-zinc-500/20 to-slate-500/5" },
+    { name: "Electrodomésticos", icon: Tv, desc: "Hogar, cocina y entretenimiento", color: "from-orange-500/20 to-amber-500/5" },
+    { name: "Katanas", icon: Sword, desc: "Colección, adorno y exhibición", color: "from-red-500/20 to-rose-500/5" },
+    { name: "Carros a escala", icon: Car, desc: "Coleccionables y pasatiempo", color: "from-blue-500/20 to-cyan-500/5" }
   ];
 
   return (
@@ -87,7 +93,7 @@ export default async function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5">
             {categoriesList.map((cat, idx) => {
               const IconComp = cat.icon;
               return (
