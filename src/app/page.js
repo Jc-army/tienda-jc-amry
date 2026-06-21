@@ -19,7 +19,7 @@ import {
   Car
 } from 'lucide-react';
 
-export const revalidate = 300; // Revalidate cache every 5 minutes
+export const dynamic = 'force-dynamic';
 
 export default async function Home() {
   const featuredProducts = await getFeaturedProducts();

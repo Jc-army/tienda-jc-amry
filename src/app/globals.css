@@ -1,54 +1,64 @@
 @import "tailwindcss";
 
 :root {
-  --background: #09090b; /* zinc-950 */
-  --foreground: #f4f4f5; /* zinc-100 */
+  --background: #ffffff;
+  --foreground: #09090b; /* zinc-950 */
+  --card: #f4f4f5;       /* zinc-100 */
+  --border: #e4e4e7;     /* zinc-200 */
+  --accent: #18181b;     /* zinc-900 */
+  --accent-text: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #09090b; /* zinc-950 */
+    --foreground: #fafafa; /* zinc-50 */
+    --card: #18181b;       /* zinc-900 */
+    --border: #27272a;     /* zinc-800 */
+    --accent: #ffffff;
+    --accent-text: #09090b;
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card-custom: var(--card);
+  --color-border-custom: var(--border);
+  --color-accent-custom: var(--accent);
+  --color-accent-text-custom: var(--accent-text);
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #09090b;
+  background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
-  background: #27272a;
+  background: var(--border);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #f59e0b; /* amber-500 */
+  background: var(--accent);
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
   overflow-x: hidden;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Custom transition utility */
-.transition-all {
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
+/* Reset for inputs */
+input, textarea, select {
+  background-color: transparent;
+  color: inherit;
 }
 
-/* NextJS image fix */
 img {
   max-width: 100%;
   height: auto;
-}
-
-/* Input reset for form autocompletes */
-input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus {
-  -webkit-text-fill-color: #ffffff;
-  -webkit-box-shadow: 0 0 0px 1000px #18181b inset;
-  transition: background-color 5000s ease-in-out 0s;
 }

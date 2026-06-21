@@ -1,5 +1,5 @@
 import Papa from 'papaparse';
-import { MOCK_PRODUCTS } from '../data/mockProducts';
+import { MOCK_PRODUCTS } from '../data/mockProducts.js';
 
 const CSV_URL = process.env.NEXT_PUBLIC_SHEET_CSV_URL;
 
@@ -19,17 +19,18 @@ function getRowValue(row, possibleKeys) {
   return undefined;
 }
 
-// Convert Google Drive view links to direct thumbnail view links
+// Convert Google Drive or Google Docs view links, or relative public folder filenames
 function formatImageUrl(url) {
   if (!url) return 'https://images.unsplash.com/photo-1595590424283-b8f17842773f?q=80&w=600&auto=format&fit=crop';
   
   const trimmed = String(url).trim();
   
-  if (trimmed.includes('drive.google.com')) {
+  // Google Drive or Google Docs check
+  if (trimmed.includes('drive.google.com') || trimmed.includes('docs.google.com')) {
     let fileId = '';
     
-    // Pattern 1: /file/d/FILE_ID/view
-    const pathMatch = trimmed.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+    // Pattern 1: /file/d/FILE_ID/view or /d/FILE_ID/
+    const pathMatch = trimmed.match(/\/d\/([a-zA-Z0-9_-]+)/);
     if (pathMatch && pathMatch[1]) {
       fileId = pathMatch[1];
     } else {
@@ -41,9 +42,14 @@ function formatImageUrl(url) {
     }
     
     if (fileId) {
-      // Use the thumbnail API which is public, loads extremely fast, and is optimized for web <img> tags
-      return `https://drive.google.com/thumbnail?id=${fileId}&sz=w800`;
+      // Convert to a direct view link that loads raw image data
+      return `https://docs.google.com/uc?export=view&id=${fileId}`;
     }
+  }
+  
+  // If it's a relative filename (e.g. "Katana Tanjiro.PNG"), prefix with leading slash to load from public folder
+  if (!trimmed.startsWith('http://') && !trimmed.startsWith('https://') && !trimmed.startsWith('/')) {
+    return `/${trimmed}`;
   }
   
   return trimmed;
@@ -58,8 +64,9 @@ export async function getAllProducts() {
   }
 
   try {
+    // Disable caching (cache: 'no-store') so that updates in Google Sheets show up immediately on refresh
     const response = await fetch(CSV_URL, {
-      next: { revalidate: 300 } // Cache for 5 minutes on the server
+      cache: 'no-store'
     });
     
     if (!response.ok) {
@@ -83,7 +90,7 @@ export async function getAllProducts() {
               const priceVal = getRowValue(row, ['price', 'precio', 'costo', 'cost']);
               const imgVal = getRowValue(row, ['image_url', 'imagen', 'img', 'foto', 'photo', 'url_imagen']);
               const featuredVal = getRowValue(row, ['featured', 'destacado', 'featuread', 'destacados']);
-              const specsVal = getRowValue(row, ['specs', 'speects', 'especificaciones', 'caracteristicas', 'características']);
+              const specsVal = getRowValue(row, ['specs', 'spects', 'speects', 'especificaciones', 'caracteristicas', 'características']);
 
               // Parse specifications
               let specs = {};

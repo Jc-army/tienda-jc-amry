@@ -4,7 +4,7 @@ import { getProductById } from '../../../services/products';
 import ProductDetailsClient from '../../../components/ProductDetailsClient';
 import { ChevronLeft, ArrowLeft, Crosshair, AlertTriangle } from 'lucide-react';
 
-export const revalidate = 300; // Cache for 5 minutes
+export const dynamic = 'force-dynamic';
 
 export default async function ProductPage({ params }) {
   const resolvedParams = await params;

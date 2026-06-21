@@ -3,7 +3,7 @@ import { getAllProducts, getCategories } from '../../services/products';
 import CatalogClient from '../../components/CatalogClient';
 import { Loader2 } from 'lucide-react';
 
-export const revalidate = 300; // Cache for 5 minutes
+export const dynamic = 'force-dynamic';
 
 export default async function CatalogPage() {
   const products = await getAllProducts();
