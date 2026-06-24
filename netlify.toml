@@ -1,3 +1,14 @@
 [build]
   command = "npm run build"
-  publish = ".next"
+
+# Enable the Netlify Next.js Runtime for SSR, API routes, and image optimization
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Deploy Preview (for branch/pull request deploys)
+[context.deploy-preview]
+  command = "npm run build"
+
+# Branch deploys
+[context.branch-deploy]
+  command = "npm run build"

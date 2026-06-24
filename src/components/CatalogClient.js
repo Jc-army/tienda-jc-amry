@@ -5,9 +5,16 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import ProductCard from './ProductCard';
 import { Search, SlidersHorizontal, ArrowUpDown, RefreshCw, AlertCircle } from 'lucide-react';
 
-export default function CatalogClient({ initialProducts, categories }) {
+export default function CatalogClient({ initialProducts, categories: categoriesProp }) {
   const searchParams = useSearchParams();
   const router = useRouter();
+
+  // Safety: derive categories from products if the prop arrives empty
+  const categories = useMemo(() => {
+    if (categoriesProp && categoriesProp.length > 0) return categoriesProp;
+    // Fallback: extract unique categories from products
+    return [...new Set(initialProducts.map(p => p.category).filter(Boolean))];
+  }, [categoriesProp, initialProducts]);
 
   // URL parameters
   const categoryParam = searchParams.get('category');
@@ -22,11 +29,14 @@ export default function CatalogClient({ initialProducts, categories }) {
   // Sync state with URL params
   useEffect(() => {
     if (categoryParam) {
-      setSelectedCategory(categoryParam);
+      // Find the exact category name from our list (handles case differences and URL encoding)
+      const decoded = decodeURIComponent(categoryParam);
+      const match = categories.find(c => c.toLowerCase() === decoded.toLowerCase());
+      setSelectedCategory(match || decoded);
     } else {
       setSelectedCategory('Todas');
     }
-  }, [categoryParam]);
+  }, [categoryParam, categories]);
 
   useEffect(() => {
     if (searchParam) {

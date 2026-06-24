@@ -1,7 +1,7 @@
 import Papa from 'papaparse';
 import { MOCK_PRODUCTS } from '../data/mockProducts.js';
 
-const CSV_URL = process.env.NEXT_PUBLIC_SHEET_CSV_URL;
+// NOTE: CSV_URL is read inside getAllProducts() at runtime, not at module load time.
 
 // Helper to look up key values in a row case-insensitively and with possible synonyms
 function getRowValue(row, possibleKeys) {
@@ -43,7 +43,9 @@ function formatImageUrl(url) {
     
     if (fileId) {
       // Convert to a direct view link that loads raw image data
-      return `https://docs.google.com/uc?export=view&id=${fileId}`;
+      // Primary format: drive.google.com/uc is the recommended format
+      // Fallback format: lh3.googleusercontent.com works when the primary gets blocked
+      return `https://drive.google.com/uc?export=view&id=${fileId}`;
     }
   }
   
@@ -56,10 +58,11 @@ function formatImageUrl(url) {
 }
 
 export async function getAllProducts() {
+  // Read the env variable at runtime (not module load) so it works on Netlify SSR
+  const CSV_URL = process.env.NEXT_PUBLIC_SHEET_CSV_URL;
+
   if (!CSV_URL) {
-    if (typeof window !== 'undefined') {
-      console.log("No NEXT_PUBLIC_SHEET_CSV_URL env variable set. Using mock products.");
-    }
+    console.log("[JC23] No NEXT_PUBLIC_SHEET_CSV_URL set. Using mock products.");
     return MOCK_PRODUCTS;
   }
 

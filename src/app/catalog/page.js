@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { getAllProducts, getCategories } from '../../services/products';
+import { getAllProducts } from '../../services/products';
 import CatalogClient from '../../components/CatalogClient';
 import { Loader2 } from 'lucide-react';
 
@@ -7,7 +7,8 @@ export const dynamic = 'force-dynamic';
 
 export default async function CatalogPage() {
   const products = await getAllProducts();
-  const categories = await getCategories();
+  // Derive categories directly from loaded products (avoids a second fetch to Google Sheets)
+  const categories = [...new Set(products.map(p => p.category).filter(Boolean))];
 
   return (
     <Suspense fallback={

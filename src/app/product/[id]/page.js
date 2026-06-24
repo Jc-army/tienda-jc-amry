@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getProductById } from '../../../services/products';
 import ProductDetailsClient from '../../../components/ProductDetailsClient';
 import { ChevronLeft, ArrowLeft, Crosshair, AlertTriangle } from 'lucide-react';
+import { handleImageError } from '../../../utils/images';
 
 export const dynamic = 'force-dynamic';
 
@@ -56,6 +57,7 @@ export default async function ProductPage({ params }) {
               src={product.image_url}
               alt={product.name}
               className="h-full w-full object-cover"
+              onError={handleImageError}
             />
             {/* Category badge */}
             <span className="absolute left-4 top-4 rounded-md bg-zinc-950/80 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-amber-500 backdrop-blur-sm border border-amber-500/20">
