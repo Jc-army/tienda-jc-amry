@@ -56,7 +56,8 @@ export default async function ProductPage({ params }) {
             <ProductImage
               src={product.image_url}
               alt={product.name}
-              className="h-full w-full object-cover"
+              className="h-full w-full"
+              objectFit="contain"
             />
             {/* Category badge */}
             <span className="absolute left-4 top-4 rounded-md bg-zinc-950/80 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-amber-500 backdrop-blur-sm border border-amber-500/20">

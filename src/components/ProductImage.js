@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { handleImageError } from '../utils/images';
 
-export default function ProductImage({ src, alt, className = '' }) {
+export default function ProductImage({ src, alt, className = '', objectFit = 'cover' }) {
   const [loaded, setLoaded] = useState(false);
 
   return (
@@ -15,6 +15,7 @@ export default function ProductImage({ src, alt, className = '' }) {
         src={src}
         alt={alt}
         className={`${className} ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        style={{ objectFit }}
         onLoad={() => setLoaded(true)}
         onError={handleImageError}
       />
