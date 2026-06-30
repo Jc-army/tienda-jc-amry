@@ -40,7 +40,7 @@ export default function ProductCard({ product }) {
         <img
           src={product.image_url}
           alt={product.name}
-          className={`h-full w-full object-cover transition-all duration-700 group-hover:scale-110 ${
+          className={`h-full w-full object-contain p-4 transition-all duration-700 group-hover:scale-110 ${
             imgLoaded ? 'opacity-100' : 'opacity-0'
           }`}
           loading="lazy"
