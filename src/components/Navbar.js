@@ -70,6 +70,7 @@ export default function Navbar({ onOpenCart }) {
               { href: '/', label: 'Inicio' },
               { href: '/catalog', label: 'Catálogo' },
               { href: '/#how-it-works', label: '¿Cómo Cotizar?' },
+              { href: '/tools/image-resizer', label: 'Redimensionar' },
             ].map((link) => (
               <Link
                 key={link.href}
@@ -176,6 +177,7 @@ export default function Navbar({ onOpenCart }) {
               { href: '/', label: 'Inicio' },
               { href: '/catalog', label: 'Catálogo' },
               { href: '/#how-it-works', label: '¿Cómo Cotizar?' },
+              { href: '/tools/image-resizer', label: 'Redimensionar' },
             ].map((link, i) => (
               <Link
                 key={link.href}
