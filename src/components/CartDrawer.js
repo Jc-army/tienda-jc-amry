@@ -5,6 +5,9 @@ import { X, Trash2, Plus, Minus, Send, ShoppingBag } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { handleImageError } from '../utils/images';
 
+const GDL_SHIPPING_COST = 150;
+const ZMG_LABEL = 'Zona Metropolitana de Guadalajara';
+
 export default function CartDrawer({ isOpen, onClose }) {
   const { cart, cartTotal, updateQuantity, removeFromCart, clearCart } = useCart();
   const [clientName, setClientName] = useState('');
@@ -66,8 +69,12 @@ export default function CartDrawer({ isOpen, onClose }) {
       message += `• *${item.quantity}x* ${item.name}\n  _Cat: ${item.category}_ | _Unit: ${formatPrice(item.price)}_\n\n`;
     });
 
+    const shippingTotal = cartTotal + GDL_SHIPPING_COST;
+
     message += `───────────────────\n`;
-    message += `*Total Estimado:* ${formatPrice(cartTotal)}\n\n`;
+    message += `*Subtotal:* ${formatPrice(cartTotal)}\n`;
+    message += `*Envío (${ZMG_LABEL}):* ${formatPrice(GDL_SHIPPING_COST)}\n`;
+    message += `*Total con Envío:* ${formatPrice(shippingTotal)}\n\n`;
     message += `_Enviado desde el Catálogo Web de JC23 ARMY._`;
 
     const encodedMessage = encodeURIComponent(message);
@@ -251,9 +258,28 @@ export default function CartDrawer({ isOpen, onClose }) {
         {/* Footer Sum & Submit */}
         {cart.length > 0 && (
           <div className="border-t border-zinc-800 bg-zinc-950 p-6 space-y-4 animate-fade-in-up">
-            <div className="flex items-center justify-between text-sm font-bold text-white">
-              <span>Total Estimado:</span>
-              <span className="text-lg text-amber-500">{formatPrice(cartTotal)}</span>
+            {/* Subtotal */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-zinc-400">Subtotal:</span>
+                <span className="text-white font-semibold">{formatPrice(cartTotal)}</span>
+              </div>
+              {/* Shipping */}
+              <div className="flex items-center justify-between text-sm group">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-zinc-400">Envío</span>
+                  <span className="rounded-md bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 text-[9px] font-semibold text-amber-500 uppercase tracking-wider">
+                    ZMG
+                  </span>
+                </div>
+                <span className="text-emerald-400 font-semibold">{formatPrice(GDL_SHIPPING_COST)}</span>
+              </div>
+              <div className="border-t border-zinc-800/60 pt-2">
+                <div className="flex items-center justify-between text-sm font-bold text-white">
+                  <span>Total Estimado:</span>
+                  <span className="text-lg text-amber-500">{formatPrice(cartTotal + GDL_SHIPPING_COST)}</span>
+                </div>
+              </div>
             </div>
 
             <div className="flex gap-2">
@@ -272,8 +298,8 @@ export default function CartDrawer({ isOpen, onClose }) {
                 <span>{sending ? 'Enviando...' : 'Enviar por WhatsApp'}</span>
               </button>
             </div>
-            <p className="text-[10px] text-zinc-500 text-center">
-              * El precio total es una estimación. JC23 ARMY confirmará la disponibilidad y el precio final de envío por WhatsApp.
+            <p className="text-[10px] text-zinc-500 text-center leading-relaxed">
+              * Costo de envío estimado para la Zona Metropolitana de Guadalajara. JC23 ARMY confirmará disponibilidad y precio final por WhatsApp.
             </p>
           </div>
         )}
