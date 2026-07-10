@@ -136,11 +136,11 @@ export default function CartDrawer({ isOpen, onClose }) {
                 {cart.map((item, idx) => (
                   <div
                     key={item.id}
-                    className="flex gap-4 rounded-xl border border-zinc-900 bg-zinc-900/20 p-3 transition-all duration-300 hover:border-zinc-800/80 hover:bg-zinc-900/40 animate-slide-in-right"
+                    className="flex gap-3 rounded-xl border border-zinc-900 bg-zinc-900/20 p-3 transition-all duration-300 hover:border-zinc-800/80 hover:bg-zinc-900/40 animate-slide-in-right"
                     style={{ animationDelay: `${idx * 0.05}s` }}
                   >
                     {/* Thumbnail */}
-                    <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-zinc-950 border border-zinc-900">
+                    <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg bg-zinc-950 border border-zinc-900">
                       <img
                         src={item.image_url}
                         alt={item.name}
@@ -150,47 +150,81 @@ export default function CartDrawer({ isOpen, onClose }) {
                     </div>
 
                     {/* Details */}
-                    <div className="flex flex-1 flex-col justify-between">
+                    <div className="flex flex-1 flex-col min-w-0">
+                      {/* Name & Category */}
                       <div>
-                        <h4 className="line-clamp-1 text-xs font-bold text-white">{item.name}</h4>
-                        <p className="text-[10px] text-zinc-500">{item.category}</p>
-                      </div>
-                      
-                      <div className="flex items-center justify-between mt-2">
-                        {/* Quantity controls */}
-                        <div className="flex items-center rounded-lg bg-zinc-900 border border-zinc-800 p-0.5 transition-all duration-200">
-                          <button
-                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            className="p-1 text-zinc-400 transition-all duration-200 hover:text-white hover:bg-zinc-800 rounded active:scale-90"
-                          >
-                            <Minus className="h-3 w-3" />
-                          </button>
-                          <span className="px-2 text-xs font-semibold text-white min-w-[20px] text-center select-none">
-                            {item.quantity}
-                          </span>
-                          <button
-                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                            className="p-1 text-zinc-400 transition-all duration-200 hover:text-white hover:bg-zinc-800 rounded active:scale-90"
-                          >
-                            <Plus className="h-3 w-3" />
-                          </button>
-                        </div>
-
-                        {/* Price */}
-                        <span className="text-xs font-bold text-amber-500">
-                          {formatPrice(item.price * item.quantity)}
+                        <h4 className="line-clamp-2 text-xs font-bold text-white leading-snug">{item.name}</h4>
+                        <span className="inline-block mt-0.5 rounded-md bg-zinc-900 border border-zinc-800 px-1.5 py-0.5 text-[9px] font-semibold text-zinc-400 uppercase tracking-wider">
+                          {item.category}
                         </span>
                       </div>
-                    </div>
 
-                    {/* Remove button */}
-                    <button
-                      onClick={() => removeFromCart(item.id)}
-                      className="text-zinc-600 transition-all duration-200 hover:text-red-400 hover:scale-110 self-start p-1 active:scale-90"
-                      title="Eliminar del carrito"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </button>
+                      {/* Description snippet */}
+                      {item.description?.trim() && (
+                        <p className="text-[10px] text-zinc-500 leading-relaxed mt-1.5 line-clamp-2">
+                          {item.description}
+                        </p>
+                      )}
+
+                      {/* Specs chips */}
+                      {item.specs && Object.keys(item.specs).length > 0 && (
+                        <div className="flex flex-wrap gap-1 mt-1.5">
+                          {Object.entries(item.specs).slice(0, 3).map(([key, val]) => (
+                            <span
+                              key={key}
+                              className="inline-flex items-center gap-1 rounded-md bg-zinc-900/80 border border-zinc-800/60 px-1.5 py-0.5 text-[9px] text-zinc-300"
+                            >
+                              <span className="text-amber-500/70 font-semibold uppercase text-[8px]">{key}:</span>
+                              <span className="truncate max-w-[80px]">{String(val)}</span>
+                            </span>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Unit price, quantity, line total */}
+                      <div className="flex items-end justify-between mt-2 pt-1.5 border-t border-zinc-800/40">
+                        <div className="flex flex-col">
+                          <span className="text-[9px] text-zinc-500">
+                            Unit: <span className="text-zinc-300 font-semibold">{formatPrice(item.price)}</span>
+                          </span>
+                          {/* Quantity controls */}
+                          <div className="flex items-center rounded-lg bg-zinc-900 border border-zinc-800 p-0.5 mt-1 transition-all duration-200">
+                            <button
+                              onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                              className="p-1 text-zinc-400 transition-all duration-200 hover:text-white hover:bg-zinc-800 rounded active:scale-90"
+                            >
+                              <Minus className="h-3 w-3" />
+                            </button>
+                            <span className="px-2 text-xs font-semibold text-white min-w-[20px] text-center select-none tabular-nums">
+                              {item.quantity}
+                            </span>
+                            <button
+                              onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                              className="p-1 text-zinc-400 transition-all duration-200 hover:text-white hover:bg-zinc-800 rounded active:scale-90"
+                            >
+                              <Plus className="h-3 w-3" />
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Line total & remove */}
+                        <div className="flex items-center gap-2">
+                          <div className="text-right">
+                            <span className="text-[9px] text-zinc-500 block -mb-0.5">Total</span>
+                            <span className="text-sm font-bold text-amber-500 tabular-nums">
+                              {formatPrice(item.price * item.quantity)}
+                            </span>
+                          </div>
+                          <button
+                            onClick={() => removeFromCart(item.id)}
+                            className="text-zinc-600 transition-all duration-200 hover:text-red-400 hover:scale-110 self-start p-1 active:scale-90 -mr-1"
+                            title="Eliminar del carrito"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
